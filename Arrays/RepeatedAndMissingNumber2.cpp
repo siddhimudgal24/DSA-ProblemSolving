@@ -15,7 +15,7 @@ vector<int> findMissingAndRepeatedValues(vector<vector<int>>& grid) {
         }
     }
     long long expected_sum = (total * (total+1))/2;
-    long long expected_sq_sum = (total* (total+1)*(2*total +1))/6;
+    long long expected_sq_sum = (total*(total+1)*(2*total+1));
     long long diff = expected_sum- actual_sum;//a-b
     long long sq_diff = expected_sq_sum - actual_sq_sum;//a2 - b2
     long long sum = sq_diff/diff;//a+b

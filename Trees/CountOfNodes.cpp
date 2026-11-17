@@ -16,10 +16,10 @@ Node* buildTree(vector<int>nodes){
     if(nodes[idx]==-1){
         return NULL;
     }
-    Node* curr = new Node(nodes[idx]);
-    curr->left = buildTree(nodes);
-    curr->right = buildTree(nodes);
-    return curr;
+    Node* curr_node = new Node(nodes[idx]);
+    curr_node->left = buildTree(nodes);
+    curr_node->right = buildTree(nodes);
+    return curr_node;
 }
 int countOfNodes(Node* root){
     if(root == NULL){
