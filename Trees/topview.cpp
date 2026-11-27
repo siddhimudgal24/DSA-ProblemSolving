@@ -2,6 +2,7 @@
 #include<bits/stdc++.h>
 using namespace std;
 class Node{
+    public:
     int data;
     Node* left;
     Node* right;
@@ -10,6 +11,51 @@ class Node{
         left = right = NULL;
     }
 };
+
+// lets create a buildTree function for creating a tree or building a tree using a given array preorder
+static int idx= -1;// creating a static global variable idx
+//we will be using the recursion to solve the problems for tree like first calling the function for left subtree and then calling the same function for right subtree
+Node* buildTree(vector<int>nodes){
+    idx++;
+    if(nodes[idx]==-1){// base case
+        return NULL;
+    }
+    Node *currNode = new Node(nodes[idx]);
+    currNode->left = buildTree(nodes);
+    currNode->right = buildTree(nodes);
+    return currNode;
+}
+
+void topView(Node* root){
+    queue<pair<Node*,int>>Q;
+    map<int,int>mp;
+    Q.push(make_pair(root,0));
+    while(!Q.empty()){
+        pair<Node*,int>curr = Q.front();
+        Q.pop();
+
+        Node* currNode = curr.first;
+        int currHD = curr.second;
+        if(mp.count(currHD)==0){//HD -> Add in map
+            mp[currHD]= currNode->data;
+        }
+        if(currNode->left!=NULL){
+            pair<Node* , int>left= make_pair(currNode->left,currHD-1);
+            Q.push(left);
+        }
+        if(currNode->right!=NULL){
+            pair<Node* , int>right= make_pair(currNode->right,currHD+1);
+            Q.push(right);
+        }
+    }
+    for(auto it:mp){
+        cout<<it.second<<" ";
+    }
+    cout<<endl;
+    }
 int main(){
-    return 0;
+    vector<int>nodes = {1,2,4,-1,-1,5,-1,-1,3,-1,6,-1,-1};
+    Node* root = buildTree(nodes);
+    cout<<root->data<<endl;
+    topView(root);
 }
